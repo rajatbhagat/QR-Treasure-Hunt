@@ -9,11 +9,12 @@ import android.content.SharedPreferences;
 
 public class Constants {
 
-    final static String ROOT_URL = "http://treasure-online.herokuapp.com";
-    final static String LOGIN_URL = ROOT_URL + "/login/";
-    final static String REGISTER_URL = ROOT_URL + "/register/";
-    final static String CLUE_DETAILS_URL = ROOT_URL + "/update/";
-    final static String GET_ALL_CLUES = ROOT_URL + "/scanned/";
+//    final static String ROOT_URL = "http://treasure-online.herokuapp.com";
+    final static String ROOT_URL = "http://10.0.2.2:8000/";
+    final static String LOGIN_URL = ROOT_URL + "login/";
+    final static String REGISTER_URL = ROOT_URL + "register/";
+    final static String CLUE_DETAILS_URL = ROOT_URL + "update/";
+    final static String GET_ALL_CLUES = ROOT_URL + "scanned/";
 
     final static String KEY_USERNAME = "username";
     final static String KEY_EMAIL = "email";

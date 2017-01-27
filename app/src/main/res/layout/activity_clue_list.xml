@@ -10,11 +10,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.rajatbhagat.codeshastra3.ClueListActivity">
 
-    <ListView
-        android:id="@+id/list_view_all_clues"
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/recycler_view_all_clues">
 
-    </ListView>
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

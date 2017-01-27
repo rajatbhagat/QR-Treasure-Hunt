@@ -58,58 +58,69 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setLoginStatus();
-        Log.e("login stat", "" + savedLoginStatus);
-        getOurSharedPreferences();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        actionBar = getSupportActionBar();
-        actionBar.setTitle("Login");
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
+        getOurSharedPreferences();
+        Log.e("login stat", "" + savedLoginStatus);
         if (savedLoginStatus) {
-            progressDialog.dismiss();
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Loggin in...");
+            progressDialog.show();
+
             Intent intent = new Intent(this, CentralPanel.class);
-            intent.putExtra("teamName", savedName);
-            intent.putExtra("teamEmail", savedEmail);
             startActivity(intent);
-        } else {
             progressDialog.dismiss();
-            usernameEditText = (EditText) findViewById(R.id.edit_text_username);
-            passwordEditText = (EditText) findViewById(R.id.edit_text_password);
 
-            loginButton = (Button) findViewById(R.id.button_login);
-            registerButton = (Button) findViewById(R.id.button_register);
+        } else {
 
-            progressDialog = new ProgressDialog(MainActivity.this);
+            actionBar = getSupportActionBar();
+            actionBar.setTitle("Login");
 
-            loginButton.setOnClickListener(new View.OnClickListener() {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Loading...");
+            progressDialog.show();
+            if (savedLoginStatus) {
+                progressDialog.dismiss();
+                Intent intent = new Intent(this, CentralPanel.class);
+                intent.putExtra("teamName", savedName);
+                intent.putExtra("teamEmail", savedEmail);
+                startActivity(intent);
+            } else {
+                progressDialog.dismiss();
+                usernameEditText = (EditText) findViewById(R.id.edit_text_username);
+                passwordEditText = (EditText) findViewById(R.id.edit_text_password);
 
-                @Override
-                public void onClick(View v) {
+                loginButton = (Button) findViewById(R.id.button_login);
+                registerButton = (Button) findViewById(R.id.button_register);
+
+                progressDialog = new ProgressDialog(MainActivity.this);
+
+                loginButton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
 //                 Form Validator and Intent start
-                    if (!false) {
-                        Log.e("button clicke", "chala");
-                        progressDialog.setMessage("Logging in...");
-                        progressDialog.show();
-                        login();
-                        Log.e("username", savedName);
-                    } else {
-                        Toast.makeText(MainActivity.this, "Invalid entry", Toast.LENGTH_SHORT).show();
+                        if (!false) {
+                            Log.e("button clicke", "chala");
+                            progressDialog.setMessage("Logging in...");
+                            progressDialog.show();
+                            login();
+                            Log.e("username", savedName);
+                        } else {
+                            Toast.makeText(MainActivity.this, "Invalid entry", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            });
+                });
 
-            registerButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
-                    MainActivity.this.startActivity(intent);
-                }
-            });
+                registerButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
+                        MainActivity.this.startActivity(intent);
+                    }
+                });
+            }
         }
     }
 
@@ -165,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("credentials", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(Constants.KEY_LOGIN_STATUS, false);
+        editor.commit();
     }
 
     public void setSharedPreferences() {
@@ -176,12 +188,13 @@ public class MainActivity extends AppCompatActivity {
 //        editor.putString(Constants.KEY_FIRST_NAME, firstName);
 //        editor.putString(Constants.KEY_LAST_NAME, lastName);
         editor.apply();
+        editor.commit();
     }
 
     public void getOurSharedPreferences() {
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("credentials", Context.MODE_PRIVATE);
         savedName = preferences.getString(Constants.KEY_USERNAME, "username");
         savedEmail = preferences.getString(Constants.KEY_EMAIL, email);
-        savedLoginStatus = preferences.getBoolean(Constants.KEY_LOGIN_STATUS, false);
+        savedLoginStatus = preferences.getBoolean(Constants.KEY_LOGIN_STATUS, true);
     }
 }

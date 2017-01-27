@@ -55,7 +55,7 @@ public class CentralPanel extends AppCompatActivity {
         actionBar.setTitle("Treasure Hunt");
 
         scanButton = (Button) findViewById(R.id.button_scan);
-//        logoutButton = (Button) findViewById(R.id.button_logout);
+        logoutButton = (Button) findViewById(R.id.button_logout);
         seeClueListButton = (Button)findViewById(R.id.button_get_scanned_clues);
 
         scanButton.setOnClickListener(new View.OnClickListener() {
@@ -65,15 +65,15 @@ public class CentralPanel extends AppCompatActivity {
             }
         });
 
-//        logoutButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                logout();
-//
-//                Intent intent = new Intent(CentralPanel.this, MainActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+
+                Intent intent = new Intent(CentralPanel.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         seeClueListButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +162,7 @@ public class CentralPanel extends AppCompatActivity {
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("credentials", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(Constants.KEY_LOGIN_STATUS, false);
+        editor.commit();
 
     }
 }
